@@ -8,7 +8,7 @@
 [Uu]ser[Ss]ettings/
 
 # Visual Studio
-.vs/
+.vscode/
 *.csproj
 *.sln
 
