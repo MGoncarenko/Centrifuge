@@ -55,11 +55,9 @@ namespace CentrifugalForce
 
             if (Mathf.Abs(vertical) < 0.01f && Mathf.Abs(horizontal) < 0.01f) return;
 
-            // Рух відносно камери — беремо forward і right з CinemachineCamera
             Vector3 camForward = Camera.main.transform.forward;
             Vector3 camRight = Camera.main.transform.right;
 
-            // Прибираємо радіальну компоненту (рух тільки вздовж стінки)
             Vector3 radialDir = _axis.GetRadialDirection(transform.position);
             camForward -= Vector3.Dot(camForward, radialDir) * radialDir;
             camRight -= Vector3.Dot(camRight, radialDir) * radialDir;
@@ -73,15 +71,12 @@ namespace CentrifugalForce
 
             Vector3 targetVelocity = moveDirection.normalized * _moveSpeed;
 
-            // Зберігаємо радіальну швидкість
             float radialSpeed = Vector3.Dot(_rb.linearVelocity, radialDir);
             _rb.linearVelocity = targetVelocity + radialDir * radialSpeed;
         }
 
         private void HandleRotation()
         {
-            // Rotation тепер не потрібен — рух керується камерою
-            // Можна залишити порожнім або видалити виклик з FixedUpdate
         }
 
         private void HandleJump()
@@ -100,7 +95,6 @@ namespace CentrifugalForce
 
         private bool CheckGrounded()
         {
-            // Стріляємо від гравця до стінки = позитивний радіальний напрямок
             Vector3 toWall = _axis.GetRadialDirection(transform.position);
             bool grounded = Physics.Raycast(
                 transform.position,
